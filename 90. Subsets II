@@ -1,0 +1,97 @@
+#include<bits/stdc++.h>
+using namespace std;
+void print(int n){
+    
+    for(int i=31;i>=0;i--){
+        cout<<((n>>i)&1);
+    }
+    cout<<endl;
+}
+
+bool check2(vector<int>v1,vector<int>v2){
+   
+    
+    int  n=v1.size();
+    int m=v2.size();
+    if(m==n){
+        for(int i=0;i<n;i++){
+      
+      int sum1=0;
+      int sum2=0;
+      sum1+=v1[i];
+      sum2+=v2[i];
+      if(sum1==sum2){
+          return true;
+      }
+      return false;
+      
+    }
+    }
+    
+    return false;
+   
+  
+      
+    
+    
+   
+}
+
+bool check(vector<vector<int>> subsets,vector<int>& nums){
+    bool result=true;
+    for(auto sub:subsets){
+
+          if(check2(sub,nums)){
+              result=false;
+              break;
+          }
+        
+    }
+    return result;
+}
+
+ vector<vector<int>> subsets(vector<int>& nums) {
+     
+      int n=nums.size();
+      
+      int sub_ct=(1<<n);
+      vector<vector<int>>ans;
+      
+      for(int mask=0;mask<sub_ct;mask++){
+          vector<int>subset;
+          for(int i=0;i<n;i++){
+              if((mask&(1<<i))!=0){
+                  subset.emplace_back(nums[i]);
+              }
+          }
+          if(check(ans,subset)){
+          ans.emplace_back(subset);
+          }
+      }
+      return ans;
+        
+    }
+
+int main()
+{
+   
+  int n;
+  cin>>n;
+  vector<int>v(n);
+  for(int i=0;i<n;i++){
+      int num;
+      cin>>num;
+      v[i]=num;
+  }
+   
+  auto all_subset=subsets(v);
+ 
+   
+  for(auto sub:all_subset){
+     for(auto ele:sub){
+       cout<<ele;
+      }
+      cout<<endl;
+  }
+   
+}
